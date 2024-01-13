@@ -1,67 +1,56 @@
 import Head from "next/head";
+import Layout, { siteTitle } from "../components/layout";
 import styles from "../styles/Home.module.css";
-import Image from "next/image";
+import utilStyles from "../styles/utils.module.css";
+import problems from "../public/data/problems.js";
+import { useState } from "react";
 
 export default function Home() {
     return (
-        <div className={styles.container}>
-            <Head>
-                <title className={styles.title}>The JS Craftman's Workshop</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+        <>
+            <Layout>
+                <Head>
+                    <title>{siteTitle}</title>
+                </Head>
+                <section className={utilStyles.headingMd}>
+                    <p>Welcome to my JS Craftman's Workshop!</p>
+                    <p>
+                        This is a lightweigtht website that I use as my personal
+                        JS workshop to hack on different JS projects and ideas.
+                    </p>
+                </section>
+                <div className={styles.container}>
+                    {problems.map((problem, i) => {
+                        const [showDetails, setShowDetails] = useState(false);
 
-            <main className={styles.main}>
-                <h1 className={styles.title}>
-                    Welcome to The JS Craftman's Workshop!
-                </h1>
-				<Image
-					className={styles.logo}
-					src="/images/js-workshop-logo.png" // Route of the image file
-					height={144} // Desired size with correct aspect ratio
-					width={144} // Desired size with correct aspect ratio
-					alt="JS Craftman's Workshop Logo"
-				/>
-                <p className={styles.description}>
-                    Just a few things I have tinkered with.
-                </p>
-
-                <div className={styles.grid}>
-                    <a href="https://leetcode.com" className={styles.card}>
-                        <h3>Problem #1 &rarr;</h3>
-                        <p>
-                            Coming soon!
-                        </p>
-                    </a>
-
-                    <a href="https://nextjs.org/learn" className={styles.card}>
-                        <h3>Problem #2 &rarr;</h3>
-                        <p>
-                            Coming soon!
-                        </p>
-                    </a>
-
-                    <a
-                        href="https://github.com/vercel/next.js/tree/canary/examples"
-                        className={styles.card}
-                    >
-                        <h3>Problem #4 &rarr;</h3>
-                        <p>
-							Coming soon!
-                        </p>
-                    </a>
-
-                    <a
-                        href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                        className={styles.card}
-                    >
-                        <h3>Problem #4 &rarr;</h3>
-                        <p>
-							Coming soon!
-                        </p>
-                    </a>
+                        return (
+                            <div key={i} className={styles.card}>
+                                <h2>{problem.title}</h2>
+                                <div id="statusAndDifficulty" className="statusAndDifficulty">
+                                    <span className={styles[problem.status.toLowerCase()]}>{problem.status}</span>
+                                    <span className={styles[problem.difficultyLevel.toLowerCase()]}>{problem.difficultyLevel}</span>
+                                </div>
+                                <p>{problem.description}</p>
+                                <div id="tags" className="tags">
+                                    {problem.tags.map((tag, i) => (
+                                        <span key={i} className={styles.tag}>{tag}</span>
+                                    ))}
+                                </div>
+                                <button className={styles.readMoreButton} onClick={() => setShowDetails(!showDetails)}>
+                                    Read more
+                                    {/* Add your down arrow icon here */}
+                                </button>
+                                {showDetails && (
+                                    <div>
+                                        {/* Add your problem details here */}
+                                        <p>TODO: Add problem details</p>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
-            </main>
-
-        </div>
+            </Layout>
+        </>
     );
 }
