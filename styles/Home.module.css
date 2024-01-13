@@ -17,9 +17,10 @@
 }
 
 .card p {
-	font-size: 1.25rem;
+	font-size: 1rem;
 	line-height: 1.5;
-	margin: 0;
+	margin-bottom: .5rem;
+	margin-top: .5rem;
 }
 
 .container {
@@ -31,16 +32,20 @@
 	padding: 0 0.5rem;
 }
 
-.description {
-	font-size: 1rem;
-	line-height: .5rem;
-	text-align: start;
-}
-
 .easy {
 	color: lightgreen;
 	padding: 0.2em 0.5em;
 
+}
+
+.executeButton {
+	background-color: #f3e92b;
+	border-radius: 5px;
+	color: black;
+	font-family: inherit;
+	font-size: small;
+	margin-left: .5rem;
+	padding: 0.2em 0.5em;
 }
 
 .grid {
@@ -80,6 +85,18 @@
 	background-color: #f3e92b;
 	border-radius: 5px;
 	color: black;
+	font-family: inherit;
+	font-size: medium;
+	margin-bottom: .5rem;
+	margin-top: .5rem;
+	padding: 0.2em 0.5em;
+}
+
+.scriptInput {
+	background-color: rgb(69, 69, 69);
+	border-radius: 5px;
+	color: white;
+	font-size: 1rem;
 	padding: 0.2em 0.5em;
 }
 
@@ -99,11 +116,12 @@
 	border-radius: 50px;
 	color: white;
 	padding: 0.2em 0.5em;
+	margin-right: .25rem
 }
 
 .tags {
 	display: flex;
-	gap: 1rem
+	gap: 1rem;
 }
 
 .title {

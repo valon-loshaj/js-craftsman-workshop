@@ -22,6 +22,14 @@ export default function Home() {
                 <div className={styles.container}>
                     {problems.map((problem, i) => {
                         const [showDetails, setShowDetails] = useState(false);
+                        const [userInput, setUserInput] = useState('');
+                        const [scriptOutput, setScriptOutput] = useState('');
+
+                        const handleExecuteScript = () => {
+                            // This assumes that problem.details.solutionScript is a function
+                            const output = problem.details.solutionScript(userInput);
+                            setScriptOutput(output);
+                        };
 
                         return (
                             <div key={i} className={styles.card}>
@@ -42,8 +50,23 @@ export default function Home() {
                                 </button>
                                 {showDetails && (
                                     <div>
-                                        {/* Add your problem details here */}
-                                        <p>TODO: Add problem details</p>
+                                        {problem.status.toLowerCase() === 'resolved' ? (
+                                            <>
+                                                <input 
+                                                    className={styles.scriptInput}
+                                                    type="text" 
+                                                    value={userInput} 
+                                                    onChange={e => setUserInput(e.target.value)} 
+                                                    placeholder={problem.details.expectedInput}
+                                                />
+                                                <button 
+                                                    className={styles.executeButton}
+                                                    onClick={handleExecuteScript}>Execute →</button>
+                                                <p>{scriptOutput}</p>
+                                            </>
+                                        ) : (
+                                            <p> Solution coming soon!</p>
+                                        )}
                                     </div>
                                 )}
                             </div>
