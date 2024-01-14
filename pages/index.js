@@ -13,7 +13,7 @@ export default function Home() {
                     <title>{siteTitle}</title>
                 </Head>
                 <section className={utilStyles.headingMd}>
-                    <p>Welcome to my JS Craftman's Workshop!</p>
+                    <p>Welcome to my JS Craftsman's Workshop!</p>
                     <p>
                         This is a lightweigtht website that I use as my personal
                         JS workshop to hack on different JS projects and ideas.
