@@ -5,7 +5,7 @@ import utilStyles from '../styles/utils.module.css'
 import problems from '../public/data/problems.js'
 import { useState } from 'react'
 
-export default function Home() {
+export default function JSCraftmansWorkshop() {
     return (
         <>
             <Layout>
