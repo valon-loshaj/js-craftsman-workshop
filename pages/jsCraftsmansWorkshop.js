@@ -6,6 +6,17 @@ import problems from '../public/data/problems.js'
 import { useState } from 'react'
 
 export default function JSCraftsmansWorkshop() {
+    const [showDetails, setShowDetails] = useState(Array(problems.length).fill(false))
+    const [userInputs, setUserInputs] = useState(Array(problems.length).fill(''))
+    const [scriptOutputs, setScriptOutputs] = useState(Array(problems.length).fill(''))
+
+    const handleExecuteScript = (i) => {
+        const output = problems[i].details.solutionScript(userInputs[i])
+        const newScriptOutputs = [...scriptOutputs]
+        newScriptOutputs[i] = output
+        setScriptOutputs(newScriptOutputs)
+    }
+
     return (
         <>
             <Layout>
@@ -15,44 +26,18 @@ export default function JSCraftsmansWorkshop() {
                 <section className={utilStyles.headingMd}>
                     <p>Welcome to my JS Craftsman's Workshop!</p>
                     <p>
-                        This is a lightweigtht website that I use as my personal
-                        JS workshop to hack on different JS projects and ideas.
+                        This is a lightweigtht website that I use as my personal JS workshop to hack on different JS
+                        projects and ideas.
                     </p>
                 </section>
                 <div className={styles.container}>
                     {problems.map((problem, i) => {
-                        const [showDetails, setShowDetails] = useState(false)
-                        const [userInput, setUserInput] = useState('')
-                        const [scriptOutput, setScriptOutput] = useState('')
-
-                        const handleExecuteScript = () => {
-                            // This assumes that problem.details.solutionScript is a function
-                            const output =
-                                problem.details.solutionScript(userInput)
-                            setScriptOutput(output)
-                        }
-
                         return (
                             <div key={i} className={styles.card}>
                                 <h2>{problem.title}</h2>
-                                <div
-                                    id="statusAndDifficulty"
-                                    className="statusAndDifficulty"
-                                >
-                                    <span
-                                        className={
-                                            styles[problem.status.toLowerCase()]
-                                        }
-                                    >
-                                        {problem.status}
-                                    </span>
-                                    <span
-                                        className={
-                                            styles[
-                                                problem.difficultyLevel.toLowerCase()
-                                            ]
-                                        }
-                                    >
+                                <div id="statusAndDifficulty" className="statusAndDifficulty">
+                                    <span className={styles[problem.status.toLowerCase()]}>{problem.status}</span>
+                                    <span className={styles[problem.difficultyLevel.toLowerCase()]}>
                                         {problem.difficultyLevel}
                                     </span>
                                 </div>
@@ -66,46 +51,39 @@ export default function JSCraftsmansWorkshop() {
                                 </div>
                                 <button
                                     className={styles.readMoreButton}
-                                    onClick={() => setShowDetails(!showDetails)}
+                                    onClick={() => {
+                                        const newShowDetails = [...showDetails]
+                                        newShowDetails[i] = !newShowDetails[i]
+                                        setShowDetails(newShowDetails)
+                                    }}
                                 >
                                     Show more
-                                    {/* Add your down arrow icon here */}
                                 </button>
-                                {showDetails && (
+                                {showDetails[i] && (
                                     <div>
-                                        {problem.status.toLowerCase() ===
-                                        'resolved' ? (
+                                        {problem.status.toLowerCase() === 'solved' ? (
                                             <>
                                                 <input
-                                                    className={
-                                                        styles.scriptInput
-                                                    }
+                                                    className={styles.scriptInput}
                                                     type="text"
-                                                    value={userInput}
-                                                    onChange={(e) =>
-                                                        setUserInput(
-                                                            e.target.value,
-                                                        )
-                                                    }
-                                                    placeholder={
-                                                        problem.details
-                                                            .expectedInput
-                                                    }
+                                                    value={userInputs[i]}
+                                                    onChange={(e) => {
+                                                        const newUserInputs = [...userInputs]
+                                                        newUserInputs[i] = e.target.value
+                                                        setUserInputs(newUserInputs)
+                                                    }}
+                                                    placeholder={problem.details.expectedInput}
                                                 />
                                                 <button
-                                                    className={
-                                                        styles.executeButton
-                                                    }
-                                                    onClick={
-                                                        handleExecuteScript
-                                                    }
+                                                    className={styles.executeButton}
+                                                    onClick={() => handleExecuteScript(i)}
                                                 >
-                                                    Execute →
+                                                    Execute Script
                                                 </button>
-                                                <p>{scriptOutput}</p>
+                                                <p>{scriptOutputs[i]}</p>
                                             </>
                                         ) : (
-                                            <p> Solution coming soon!</p>
+                                            <p>Solution not available</p>
                                         )}
                                     </div>
                                 )}
