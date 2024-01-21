@@ -6,16 +6,18 @@ import problems from '../public/data/problems.js'
 import { useState } from 'react'
 
 export default function JSCraftsmansWorkshop() {
-    const [showDetails, setShowDetails] = useState(Array(problems.length).fill(false))
-    const [userInputs, setUserInputs] = useState(Array(problems.length).fill(''))
-    const [scriptOutputs, setScriptOutputs] = useState(Array(problems.length).fill(''))
+    // Pagination
+    const [currentPage, setCurrentPage] = useState(1)
+    const itemsPerPage = 5
+    const indexOfLastItem = currentPage * itemsPerPage
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage
+    const currentItems = problems.slice(indexOfFirstItem, indexOfLastItem)
 
-    const handleExecuteScript = (i) => {
-        const output = problems[i].details.solutionScript(userInputs[i])
-        const newScriptOutputs = [...scriptOutputs]
-        newScriptOutputs[i] = output
-        setScriptOutputs(newScriptOutputs)
-    }
+    const [showDetails, setShowDetails] = useState(Array(currentItems.length).fill(false))
+    const solutionDetails = currentItems.map((problem) => problem.details.solutionDetails)
+    const solutionCode = currentItems.map((problem) => problem.details.solutionCode)
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
     return (
         <>
@@ -31,7 +33,23 @@ export default function JSCraftsmansWorkshop() {
                     </p>
                 </section>
                 <div className={styles.container}>
-                    {problems.map((problem, i) => {
+                    <div className={styles.pagination}>
+                        <button onClick={() => paginate(currentPage > 1 ? currentPage - 1 : currentPage)}>
+                            Previous
+                        </button>
+                        <button
+                            onClick={() =>
+                                paginate(
+                                    currentPage < Math.ceil(problems.length / itemsPerPage)
+                                        ? currentPage + 1
+                                        : currentPage,
+                                )
+                            }
+                        >
+                            Next
+                        </button>
+                    </div>
+                    {currentItems.map((problem, i) => {
                         return (
                             <div key={i} className={styles.card}>
                                 <h2>{problem.title}</h2>
@@ -63,24 +81,10 @@ export default function JSCraftsmansWorkshop() {
                                     <div>
                                         {problem.status.toLowerCase() === 'solved' ? (
                                             <>
-                                                <input
-                                                    className={styles.scriptInput}
-                                                    type="text"
-                                                    value={userInputs[i]}
-                                                    onChange={(e) => {
-                                                        const newUserInputs = [...userInputs]
-                                                        newUserInputs[i] = e.target.value
-                                                        setUserInputs(newUserInputs)
-                                                    }}
-                                                    placeholder={problem.details.expectedInput}
-                                                />
-                                                <button
-                                                    className={styles.executeButton}
-                                                    onClick={() => handleExecuteScript(i)}
-                                                >
-                                                    Execute Script
-                                                </button>
-                                                <p>{scriptOutputs[i]}</p>
+                                                <p>{solutionDetails[i]}</p>
+                                                <pre className={styles.githubCodeBlock}>
+                                                    <code className={styles.githubCodeBlock}>{solutionCode[i]}</code>
+                                                </pre>
                                             </>
                                         ) : (
                                             <p>Solution not available</p>
