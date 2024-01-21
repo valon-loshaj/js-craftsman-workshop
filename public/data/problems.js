@@ -8,25 +8,9 @@ const problems = [
         difficultyLevel: 'Easy',
         details: {
             expectedInput: '"abcdef", "abcef"',
-            solutionScript: function (ransomNote, magazine) {
-                let magazineLetters = new Map()
-
-                for (let i = 0; i < magazine.length; i++) {
-                    let m = magazine.charAt(i)
-                    let currentCount = magazineLetters.has(m) ? magazineLetters.get(m) : 0
-                    magazineLetters.set(m, currentCount + 1)
-                }
-
-                for (let i = 0; i < ransomNote.length; i++) {
-                    let r = ransomNote.charAt(i)
-                    let currentCount = magazineLetters.has(r) ? magazineLetters.get(r) : 0
-                    if (currentCount === 0) {
-                        return false
-                    }
-                    magazineLetters.set(r, currentCount - 1)
-                }
-                return true
-            },
+            solutionDetails: 'Details of the solution.',
+            solutionCode:
+                'var canConstruct = function(ransomNote, magazine) {\n    let magazineLetters = new Map();\n    \n    for (let i = 0; i < magazine.length; i++) {\n        let m = magazine.charAt(i);\n        let currentCount = magazineLetters.has(m) ? magazineLetters.get(m) : 0;\n        magazineLetters.set(m, currentCount + 1);\n    }\n    \n    for (let i = 0; i < ransomNote.length; i++) {\n        let r = ransomNote.charAt(i);\n        let currentCount = magazineLetters.has(r) ? magazineLetters.get(r) : 0;\n        if (currentCount === 0) {\n            return false;\n        }\n        magazineLetters.set(r, currentCount - 1);\n    }\n    return true;\n};',
         },
     },
     {
@@ -38,16 +22,9 @@ const problems = [
         difficultyLevel: 'Easy',
         details: {
             expectedInput: '[1, 2, 3, 4, 5]',
-            solutionScript: function (head) {
-                let middle = head
-                let end = head
-
-                while (end != null && end.next != null) {
-                    middle = middle.next
-                    end = end.next.next
-                }
-                return middle
-            },
+            solutionDetails: 'Details of the solution.',
+            solutionCode:
+                'var middleNode = function(head) {\n    let middle = head;\n    let end = head;\n    \n    while (end != null && end.next != null) {\n        middle = middle.next;\n        end = end.next.next;\n    }\n    return middle;\n};',
         },
     },
     {
@@ -59,18 +36,9 @@ const problems = [
         difficultyLevel: 'Easy',
         details: {
             expectedInput: 'Integer',
-            solutionScript: function (num) {
-                let totalSteps = 0
-                while (num > 0) {
-                    if (num % 2 == 0) {
-                        num = num / 2
-                    } else {
-                        num--
-                    }
-                    totalSteps++
-                }
-                return totalSteps
-            },
+            solutionDetails: 'Details of the solution.',
+            solutionCode:
+                'var numberOfSteps = function(num) {\n    let totalSteps = 0;\n    while (num > 0) {\n    if (num % 2 == 0) {\n        num = num/2;\n    }\n    else {\n        num--;\n    }\n    totalSteps++;\n    }\n    return totalSteps;\n};',
         },
     },
     {
@@ -82,23 +50,9 @@ const problems = [
         difficultyLevel: 'Easy',
         details: {
             expectedInput: 'Integer',
-            solutionScript: function (n) {
-                let arrayOfStrings = []
-                for (let i = 1; i <= n; i++) {
-                    let str = ''
-                    if (i % 3 === 0 && i % 5 === 0) {
-                        str += 'FizzBuzz'
-                    } else if (i % 3 === 0) {
-                        str += 'Fizz'
-                    } else if (i % 5 === 0) {
-                        str += 'Buzz'
-                    } else {
-                        str += i.toString
-                    }
-                    arrayOfStrings.push(str)
-                }
-                return arrayOfStrings
-            },
+            solutionDetails: 'Details of the solution.',
+            solutionCode:
+                "var fizzBuzz = function(n) {\n    let arrayOfStrings = [];\n    for (let i = 1; i <= n; i++) {\n        let str = '';\n        if (i % 3 === 0 && i % 5 === 0) {\n            str += 'FizzBuzz';\n            }\n        else if (i % 3 === 0) {\n            str += 'Fizz';\n        }\n        else if (i % 5 === 0) {\n            str += 'Buzz';\n        }\n        else {\n            str += i.toString;\n        }\n        arrayOfStrings.push(str);\n    }\n    return arrayOfStrings;\n}",
         },
     },
     {
@@ -110,15 +64,9 @@ const problems = [
         difficultyLevel: 'Easy',
         details: {
             expectedInput: '[[1, 2, 3], [4, 5, 6]]',
-            solutionScript: function (accounts) {
-                let maxSum = 0
-
-                for (let account of accounts) {
-                    let sum = account.reduce((acc, num) => acc + num, 0)
-                    maxSum = Math.max(maxSum, sum)
-                }
-                return maxSum
-            },
+            solutionDetails: 'Details of the solution.',
+            solutionCode:
+                'var maximumWealth = function(accounts) {\n    // loop through each index which contains an array of integers\n    // for each index, get the sum of the integers\n    // if the sum of the next account is larger than the current value of maximumWealth then replace it, otherwise move to the next index\n    let maxSum = 0;\n    \n    for (let account of accounts) {\n        let sum = account.reduce((acc, num) => acc + num, 0);\n        maxSum = Math.max(maxSum, sum);\n    }\n    return maxSum;\n};',
         },
     },
     {
@@ -130,13 +78,9 @@ const problems = [
         difficultyLevel: 'Easy',
         details: {
             expectedInput: '[1, 2, 3, 4]',
-            solutionScript: function sumArray(nums) {
-                let runningSum = 0
-                for (let num of nums) {
-                    runningSum += num
-                }
-                return runningSum
-            },
+            solutionDetails: 'Explanation of the solution.',
+            solutionCode:
+                'function sumArray(nums) {\n\tlet runningSum = 0;\n\tfor(let num of nums) {\n\t\trunningSum += num;\n\t}\n\treturn runningSum;\n}',
         },
     },
 ]
