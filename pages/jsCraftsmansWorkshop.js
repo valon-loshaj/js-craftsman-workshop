@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
-import CodeBlock from '../components/CodeBlock'
+import CodeBlock from '../components/codeBlock.js'
 import styles from '../styles/Home.module.css'
 import utilStyles from '../styles/utils.module.css'
 import problems from '../public/data/problems.js'
