@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
+import CodeBlock from '../components/CodeBlock'
 import styles from '../styles/Home.module.css'
 import utilStyles from '../styles/utils.module.css'
 import problems from '../public/data/problems.js'
@@ -17,7 +18,10 @@ export default function JSCraftsmansWorkshop() {
     const solutionDetails = currentItems.map((problem) => problem.details.solutionDetails)
     const solutionCode = currentItems.map((problem) => problem.details.solutionCode)
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber)
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber)
+        setShowDetails(Array(itemsPerPage).fill(false))
+    }
 
     return (
         <>
@@ -78,13 +82,11 @@ export default function JSCraftsmansWorkshop() {
                                     Show more
                                 </button>
                                 {showDetails[i] && (
-                                    <div>
+                                    <div className={styles.codeBlock}>
                                         {problem.status.toLowerCase() === 'solved' ? (
                                             <>
                                                 <p>{solutionDetails[i]}</p>
-                                                <pre className={styles.githubCodeBlock}>
-                                                    <code className={styles.githubCodeBlock}>{solutionCode[i]}</code>
-                                                </pre>
+                                                <CodeBlock language="javascript" value={solutionCode[i]} />
                                             </>
                                         ) : (
                                             <p>Solution not available</p>

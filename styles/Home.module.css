@@ -49,28 +49,8 @@
     padding: 0.2em 0.5em;
 }
 
-.githubCodeBlock pre {
-    display: block;
-    padding: 9.5px;
-    margin: 0 0 10px 0;
-    font-size: 13px;
-    line-height: 1.42857143;
-    color: #333;
-    word-break: break-all;
-    word-wrap: break-word;
-    background-color: black;
-    border: 1px solid #393939;
-    border-radius: 4px;
-}
-
-.githubCodeBlock code {
-    padding: 0;
-    font-size: 0.75rem;
-    color: black;
-    white-space: pre-wrap;
-    background-color: transparent;
-    border-radius: 0;
-    line-height: 0.25rem;
+.codeBlock {
+    font-size: 75%;
 }
 
 .grid {
@@ -140,12 +120,14 @@
     background-color: rgb(100, 99, 99);
     border-radius: 50px;
     color: white;
-    padding: 0.2em 0.5em;
+    font-size: 75%;
     margin-right: 0.25rem;
+    padding: 0.2em 0.5em;
 }
 
 .tags {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 
