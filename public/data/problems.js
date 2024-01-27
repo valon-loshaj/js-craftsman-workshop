@@ -1,15 +1,180 @@
 const problems = [
     {
-        title: 'Ransom Note (383)',
+        title: 'Valid Palindrome (125)',
         description:
-            'This challeng was also sourced from leetcode. The function expects two strings and returns a boolean value if the first string can be made from the letters in the second string.',
+            "The 'Valid Palindrome' problem is a fascinating exercise in string manipulation. It asks to determine whether a given string is a palindrome, considering only alphanumeric characters and ignoring cases.",
         status: 'Solved',
-        tags: ['Leetcode', 'Strings', 'Hash Tables'],
+        tags: ['Leetcode', 'Strings', 'Two_Pointers'],
+        difficultyLevel: 'Easy',
+        details: {
+            expectedInput: 'abcdef, abcef',
+            solutionDetails:
+                "To solve the 'Valid Palindrome' problem, I started by cleaning the input string using a regular expression to remove any non-alphanumeric characters. This preprocessing step simplified the problem to focus solely on the characters that matter. I then converted the cleaned string to lowercase to ensure case-insensitivity. The next step involved creating a reversed version of the string. I iterated over the cleaned string in reverse, appending each character to form the reversed string. Finally, I compared the original cleaned string with its reversed counterpart. If they matched, it indicated that the string is a palindrome. This solution highlights the importance of preprocessing in string problems and offers a straightforward approach to palindrome checking.",
+            solutionCode:
+                "let isPalindrome = function(s) {\n    let phrase = s.replace(/[^0-9a-zA-Z]/g, '');\n    phrase = phrase.toLowerCase();\n    let reversePhrase = '';\n    let palindromeCheck = false;\n    for (let i = phrase.length - 1; i >= 0; i--) {\n        let letter = phrase.charAt(i);\n        reversePhrase += letter;\n    }\n    if (phrase === reversePhrase) {\n        palindromeCheck = true;\n    }\n    return palindromeCheck;\n};",
+        },
+    },
+    {
+        title: 'Length of Last Word (58)',
+        description:
+            "The 'Length of Last Word' problem is a classic string manipulation challenge. It asks to find the length of the last word in a given string, making it an intriguing test of parsing and navigating strings.",
+        status: 'Solved',
+        tags: ['Leetcode', 'Strings', 'TypeScript'],
+        difficultyLevel: 'Easy',
+        details: {
+            expectedInput: 'abcdef, abcef',
+            solutionDetails:
+                "In solving the 'Length of Last Word' problem, I used a TypeScript function to efficiently process the input string. The approach involved iterating through the string and building an array of words. For each character in the string, I checked whether it was a space. If it was, and the next character was not a space (to avoid empty words), I moved on to the next word in the array. Otherwise, I appended the character to the current word. This way, I constructed an array of all the words in the string. The challenge's crux was to handle trailing spaces correctly, ensuring the last word's length was accurately returned. This problem was a neat exercise in string processing, particularly in understanding how to handle edge cases in string parsing.",
+            solutionCode:
+                "function lengthOfLastWord(s: string): number {\n    let stringsArray: Array<string> = ['']; // Initialize the first word as an empty string\n    let j: number = 0;\n    for (let i: number = 0; i < s.length; i++) { // Loop until i < s.length\n        if (s.charAt(i) === ' ') {\n            if (i < s.length - 1 && s.charAt(i + 1) !== ' ') { // Check next character to avoid empty words\n                j++;\n                stringsArray[j] = ''; // Initialize new word\n            }\n        } else {\n            stringsArray[j] += s.charAt(i); // Append character to current word\n        }\n    }\n    // Handle case where the last word is followed by spaces\n    return stringsArray[j].length;\n};",
+        },
+    },
+    {
+        title: 'Roman to Integer (13)',
+        description:
+            "Diving into the world of ancient Rome with the 'Roman to Integer' problem! This challenge is all about converting Roman numerals into their integer equivalent. A fun twist on traditional number conversion problems, it combines string manipulation with a touch of historical math.",
+        status: 'Solved',
+        tags: ['Leetcode', 'Hash_Tables', 'Strings', 'Math'],
+        difficultyLevel: 'Easy',
+        details: {
+            expectedInput: 'abcdef, abcef',
+            solutionDetails:
+                "To solve the 'Roman to Integer' problem, I created a map to associate each Roman numeral with its integer value. Then, I iterated through the input string, translating each numeral to its corresponding value. The key part was handling the subtraction cases like 'IV' or 'IX'. For this, I looked ahead: if a smaller numeral precedes a larger one, I subtracted the smaller value from the running total; otherwise, I added it. This method effectively navigates the unique structure of Roman numerals, ensuring accurate conversion to integers. It's a neat blend of string processing and applying mathematical logic.",
+            solutionCode:
+                "var romanToInt = function(s) {\n    const romanNumerals = new Map([['I', 1], ['V', 5], ['X', 10], ['L', 50], ['C', 100], ['D', 500], ['M', 1000]]);\n    let nums = [];\n    for (let j = 0; j <= s.length - 1; j++) {\n        let num = romanNumerals.get(s.charAt(j));\n        nums[j] = num;\n    }\n    let runningSum = 0;\n    for(let i = 0; i <= nums.length - 1; i++) {\n        if (nums[i] < nums[i + 1]) {\n            runningSum -= nums[i]\n        }\n        else {\n            runningSum += nums[i];\n        }\n    }\n    return runningSum;\n};",
+        },
+    },
+    {
+        title: 'Jump Game II (45)',
+        description:
+            "The sequel to the 'Jump Game', 'Jump Game II', raises the bar by asking not just whether you can reach the end of the array, but also how many minimum jumps you need to get there. Each array element still represents your maximum jump length, but now it's all about efficiency.",
+        status: 'Solved',
+        tags: ['Leetcode', 'Arrays', 'Greedy'],
+        difficultyLevel: 'Medium',
+        details: {
+            expectedInput: 'abcdef, abcef',
+            solutionDetails:
+                "Approaching 'Jump Game II', I employed a greedy strategy to find the minimum number of jumps needed to reach the end of the array. Initially, I set the current and next maximum reachable indices based on the first element. The trick was to iterate over the array and continually update the next maximum reach. Whenever I surpassed the current maximum reach, I incremented the jump counter and updated the current reach to the next maximum. This process continued until I reached the end of the array. The beauty of this solution lies in its ability to minimize the number of jumps by always opting for the farthest reachable jump, showcasing an effective use of the greedy approach in problem-solving.",
+            solutionCode:
+                'var jump = function(nums) {\n    if (nums.length === 1) return 0; // No jump needed if the array has only one element\n\n    let currentJumpReach = nums[0];\n    let nextJumpMaxReach = nums[0];\n    let jumps = 1;\n\n    for (let i = 1; i < nums.length; i++) {\n        if (i > currentJumpReach) {\n            jumps++;\n            currentJumpReach = nextJumpMaxReach;\n        }\n        nextJumpMaxReach = Math.max(nextJumpMaxReach, i + nums[i]);\n    }\n\n    return jumps;\n};',
+        },
+    },
+    {
+        title: 'Jump Game (55)',
+        description:
+            "The 'Jump Game' challenge involves navigating an array where each element represents the maximum jump length at that position. The objective is to determine if it's possible to reach the end of the array.",
+        status: 'Solved',
+        tags: ['Leetcode', 'Arrays', 'Greedy'],
+        difficultyLevel: 'Medium',
+        details: {
+            expectedInput: 'abcdef, abcef',
+            solutionDetails:
+                "In tackling the 'Jump Game', the key was to use a greedy approach to track the farthest reachable index. I iterated over each element of the array, updating the maximum reachable index at each step. If at any point I found myself at an index beyond my maximum reach, it meant the end of the array was not attainable, and I returned false. Conversely, if the maximum reach surpassed or reached the last index, I could conclude that the end was reachable, returning true. This method efficiently checks reachability without exhaustively exploring all possible paths, showcasing the power of greedy algorithms in solving optimization problems.",
+            solutionCode:
+                'var canJump = function(nums) {\n    let maxReach = 0;\n    for (let i = 0; i < nums.length; i++) {\n        if (i > maxReach) return false;\n        maxReach = Math.max(maxReach, i + nums[i]);\n        if (maxReach >= nums.length - 1) return true;\n    }\n    return false;\n};',
+        },
+    },
+    {
+        title: 'Best Time to Buy and Sell Stock II (122)',
+        description:
+            "In the 'Best Time to Buy and Sell Stock II' challenge, the goal is to maximize profit in a stock market scenario where you can buy and sell stocks multiple times. This problem extends the concept of finding profit opportunities in an array of stock prices.",
+        status: 'Solved',
+        tags: ['Leetcode', 'Arrays', 'Dynamic_Programming'],
+        difficultyLevel: 'Medium',
+        details: {
+            expectedInput: 'abcdef, abcef',
+            solutionDetails:
+                "Solving 'Best Time to Buy and Sell Stock II' was about capturing every profitable opportunity. Unlike its predecessor, where you only buy and sell once, this problem allows multiple transactions for profit maximization. I iterated through the array, comparing each price with the next day's price. Whenever I found that the next day's price was higher, I executed a 'buy and sell' transaction, adding the difference to my total profit. This strategy ensures that every potential profit, no matter how small, is captured, thereby maximizing the overall profit.",
+            solutionCode:
+                'var maxProfit = function(prices) {\n    let profit = 0;\n    for (let i = 0; i < prices.length - 1; i++) {\n        if (prices[i] < prices[i + 1]) {\n            profit += prices[i + 1] - prices[i];\n        }\n    }\n    return profit;\n};',
+        },
+    },
+    {
+        title: 'Best Time to Buy and Sell Stock (121)',
+        description:
+            "The 'Best Time to Buy and Sell Stock' challenge is all about identifying the optimal time to buy and sell a stock for maximum profit. This problem is a great introduction to the concept of maximizing differences in an array.",
+        status: 'Solved',
+        tags: ['Leetcode', 'Arrays', 'Dynamic_Programming'],
+        difficultyLevel: 'Easy',
+        details: {
+            expectedInput: 'abcdef, abcef',
+            solutionDetails:
+                "Solving the 'Best Time to Buy and Sell Stock' problem required an understanding of Dynamic_ and array manipulation. The key was to keep track of the minimum price seen so far and the maximum profit that can be achieved. I iterated through the array, updating the minimum price whenever a lower price was found. Simultaneously, I calculated the potential profit at each step and updated the maximum profit if a higher value was found. This approach ensures that the maximum difference between the selling and buying price is found, leading to the best possible profit.",
+            solutionCode:
+                'var maxProfit = function(prices) {\n    let maxProfit = 0;\n    let minPrice = Infinity;\n    \n    for (let i = 0; i <= prices.length; i++) {\n        if (prices[i] < minPrice) {\n            minPrice = prices[i];\n        }\n        else if (prices[i] - minPrice > maxProfit) {\n            maxProfit = prices[i] - minPrice;\n        }\n    }\n    return maxProfit;\n};',
+        },
+    },
+    {
+        title: 'Majority Element (169)',
+        description:
+            "The 'Majority Element' problem is a classic example that demonstrates the power of hash table manipulations. It involves finding an element in an array that appears more than any other.",
+        status: 'Solved',
+        tags: ['Leetcode', 'Arrays', 'Hash_Tables'],
+        difficultyLevel: 'Easy',
+        details: {
+            expectedInput: 'abcdef, abcef',
+            solutionDetails:
+                "Solving the 'Majority Element' problem was an interesting exercise in efficient counting using a hash table. The solution involves iterating over the array and using a map to keep track of the count of each element. For each element in the array, I updated its count in the map. Then, I checked if the current element's count exceeded the maximum count found so far. If it did, this element became the new most frequent element. The algorithm is efficient and effectively utilizes a map for counting, highlighting the usefulness of Hash_Tables in solving frequency-based problems.",
+            solutionCode:
+                'var majorityElement = function(nums) {\n    const countMap = new Map();\n    let maxCount = 0, mostFrequent;\n    \n    for(const num of nums) {\n        let count = (countMap.get(num) || 0) + 1;\n        countMap.set(num, count);\n        \n        if (count > maxCount) {\n            maxCount = count;\n            mostFrequent = num;\n        }\n    }\n    return mostFrequent;\n};',
+        },
+    },
+    {
+        title: 'Remove Duplicates from Sorted Array (26)',
+        description:
+            "Tackling the 'Remove Duplicates from Sorted Array' problem is all about efficiently managing array elements. The aim is to modify the array in-place to remove any duplicates, keeping only unique elements, and then return the new length of the array.",
+        status: 'Solved',
+        tags: ['Leetcode', 'Arrays', 'Two_Pointers'],
         difficultyLevel: 'Easy',
         details: {
             expectedInput: '"abcdef", "abcef"',
             solutionDetails:
-                "Diving into the 'Ransom Note' problem from LeetCode, it's all about string manipulation and clever use of hash tables. The task was to check if the first string (the ransom note) could be formed from the letters of the second string (the magazine).\n\nMy approach involved creating a hash table, or in JavaScript terms, a Map, to keep track of the letter frequencies in the magazine. I looped through each character in the magazine and updated the Map with the count of each letter.\n\nOnce I had the counts of all the letters in the magazine, I started to loop through the ransom note. For each character in the ransom note, I checked if it existed in the Map and whether there were enough of those characters left (as per the count in the Map).\n\nIf at any point, I found a letter that wasn't in the magazine or there weren't enough of that letter, I returned false, indicating that the ransom note couldn't be constructed from the magazine. Otherwise, I decreased the count of the used letter in the Map.\n\nAfter successfully looping through the ransom note without any issues, I returned true, which means the ransom note could indeed be formed from the magazine's letters.\n\nThis problem was a neat exercise in understanding how hash tables can be effectively used to solve problems involving character frequencies and string manipulations. It's a classic example showing the power of efficient data structures in simplifying complex problems.",
+                "The 'Remove Duplicates from Sorted Array' challenge required a clever use of the two-pointer technique to effectively remove duplicates from a sorted array. Here's how I approached it: I set up Two_Pointers, 'i' and 'j'. Pointer 'i' is used to track the position where the next unique element should go, while 'j' is used to explore the array. As 'j' moves through the array, whenever it finds an element different from the current element at 'i', I increment 'i' and copy the new unique element to the 'i'-th position. This method ensures that all unique elements are moved to the front of the array, and duplicates are overwritten. After the loop, the length of the array without duplicates is 'i + 1', which is the final result. This problem is a great exercise in array manipulation and illustrates how to use pointers to achieve space-efficient solutions.",
+            solutionCode:
+                'var removeDuplicates = function(nums) {\n\tif (nums.length === 0) return 0;\n\n\tlet i = 0;\n\tfor (let j = 1; j < nums.length; j++) {\n\t\tif (nums[j] !== nums[i]) {\n\t\t\ti++;\n\t\t\tnums[i] = nums[j];\n\t\t}\n\t}\n\treturn i + 1;\n};',
+        },
+    },
+    {
+        title: 'Remove Element (27)',
+        description:
+            "In this 'Remove Element' challenge, we're tasked with removing all instances of a specified value from an array. The goal is to do this in-place and then return the new length of the array. It's a great way to practice efficient array manipulation!",
+        status: 'Solved',
+        tags: ['Leetcode', 'Arrays', 'Two_Pointers'],
+        difficultyLevel: 'Easy',
+        details: {
+            expectedInput: '"abcdef", "abcef"',
+            solutionDetails:
+                "The 'Remove Element' problem had me working with arrays, specifically removing elements. The approach I used involved Two_Pointers: one for iterating over the array ('j') and another ('i') for tracking the position where non-target values should be placed. As I looped through the array, whenever I found a value that wasn't the specified value to remove, I placed it at the current 'i' index and then incremented 'i'. This way, all the non-target values got shuffled to the front of the array, and the target values were overwritten. After the loop, 'i' indicated the new length of the modified array, which was the final result to return. This problem was a neat exercise in in-place array manipulation, demonstrating how you can effectively use pointers to avoid the need for additional memory.",
+            solutionCode:
+                'var removeElement = function(nums, val) {\n\tlet i = 0;\n\tfor (let j = 0; j < nums.length; j++) {\n\t\tif (nums[j] !== val) {\n\t\t\tnums[i] = nums[j];\n\t\t\ti++;\n\t\t}\n\t}\n\treturn i;\n};',
+        },
+    },
+    {
+        title: 'Merge Sorted Array (88)',
+        description:
+            "Let's merge some arrays! In 'Merge Sorted Array', we get to blend two sorted lists into one. Picture combining two decks of sorted cards into a single, neatly ordered stack. It's all about finding the right spot for each element. Ready to sort and merge? Let's dive in!",
+        status: 'Solved',
+        tags: ['Leetcode', 'Arrays', 'Two_Pointers'],
+        difficultyLevel: 'Easy',
+        details: {
+            expectedInput: '"abcdef", "abcef"',
+            solutionDetails:
+                "The 'Merge Sorted Array' problem was a neat exercise in array manipulation. It involved merging two sorted arrays, nums1 and nums2, into a single sorted array. The twist was that the first array, nums1, had enough space at its end to hold the elements of nums2.\n\nHere's how I approached it:\n1. **Copy the First Part of nums1:** I started by making a copy of the initial part of nums1. This was done using the slice method, ensuring I only took the first 'm' elements. This step was crucial to avoid overwriting elements in nums1 that needed to be merged.\n\n2. **Reset nums1:** Next, I cleared the nums1 array. This might seem counterintuitive at first, but it’s a nifty trick. By resetting nums1, I made space to merge the elements from both arrays.\n\n3. **Merge and Sort:** Now comes the merging. I used the spread operator to merge the elements of the copied nums1 and nums2 into nums1. Once merged, I sorted nums1 to ensure the final array was in ascending order. The sorting used a simple numeric comparison function to handle the ordering correctly.\n\nThis approach, while straightforward, highlights a smart use of JavaScript's array methods like slice, push, and sort. It’s a great example of how combining simple operations can lead to an elegant solution to a potentially tricky problem.",
+            solutionCode:
+                'let merge = function(nums1, m, nums2, n) {\n    let copyOfNums1 = nums1.slice(0, m);\n\n    nums1.length = 0;\n    nums1.push(...copyOfNums1, ...nums2);\n\n    nums1.sort((a, b) => a - b);\n};',
+        },
+    },
+    {
+        title: 'Ransom Note (383)',
+        description:
+            'This challeng was also sourced from leetcode. The function expects two strings and returns a boolean value if the first string can be made from the letters in the second string.',
+        status: 'Solved',
+        tags: ['Leetcode', 'Strings', 'Hash_Tables'],
+        difficultyLevel: 'Easy',
+        details: {
+            expectedInput: '"abcdef", "abcef"',
+            solutionDetails:
+                "Diving into the 'Ransom Note' problem from LeetCode, it's all about string manipulation and clever use of Hash_Tables. The task was to check if the first string (the ransom note) could be formed from the letters of the second string (the magazine).\n\nMy approach involved creating a hash table, or in JavaScript terms, a Map, to keep track of the letter frequencies in the magazine. I looped through each character in the magazine and updated the Map with the count of each letter.\n\nOnce I had the counts of all the letters in the magazine, I started to loop through the ransom note. For each character in the ransom note, I checked if it existed in the Map and whether there were enough of those characters left (as per the count in the Map).\n\nIf at any point, I found a letter that wasn't in the magazine or there weren't enough of that letter, I returned false, indicating that the ransom note couldn't be constructed from the magazine. Otherwise, I decreased the count of the used letter in the Map.\n\nAfter successfully looping through the ransom note without any issues, I returned true, which means the ransom note could indeed be formed from the magazine's letters.\n\nThis problem was a neat exercise in understanding how Hash_Tables can be effectively used to solve problems involving character frequencies and string manipulations. It's a classic example showing the power of efficient data structures in simplifying complex problems.",
             solutionCode:
                 'var canConstruct = function(ransomNote, magazine) {\n    let magazineLetters = new Map();\n    \n    for (let i = 0; i < magazine.length; i++) {\n        let m = magazine.charAt(i);\n        let currentCount = magazineLetters.has(m) ? magazineLetters.get(m) : 0;\n        magazineLetters.set(m, currentCount + 1);\n    }\n    \n    for (let i = 0; i < ransomNote.length; i++) {\n        let r = ransomNote.charAt(i);\n        let currentCount = magazineLetters.has(r) ? magazineLetters.get(r) : 0;\n        if (currentCount === 0) {\n            return false;\n        }\n        magazineLetters.set(r, currentCount - 1);\n    }\n    return true;\n};',
         },
@@ -24,7 +189,7 @@ const problems = [
         details: {
             expectedInput: '[1, 2, 3, 4, 5]',
             solutionDetails:
-                "Moving on to the 'Middle of the Linked List' problem from LeetCode, it's a cool one that dives into the world of linked lists. The challenge was to find the middle node in a linked list, and if there are two middle nodes, return the second one.\n\nI approached this by using two pointers: 'middle' and 'end'. Both start at the head of the list. Think of 'middle' as a slow walker and 'end' as a fast runner. The idea is to move 'middle' one step at a time, while 'end' moves two steps.\n\nI used a while loop that runs as long as 'end' isn't null (meaning we haven't reached the end of the list) and 'end.next' isn't null (to handle the case where the list has an even number of elements).\n\nInside the loop, I moved 'middle' one step forward, and 'end' two steps forward. The trick here is that by the time 'end' reaches the end of the list, 'middle' will be right at the center of the list. If there are two middle nodes, 'middle' will end up at the second one, because 'end' would have moved an extra step.\n\nWhen the loop ends, 'middle' is pointing to the desired node. That's the node I returned as the solution.\n\nThis problem is a great example of the two-pointer technique, a handy approach for tackling problems related to linked lists. It shows how you can use different paces to gather the information you need in just one pass through the list.",
+                "Moving on to the 'Middle of the Linked List' problem from LeetCode, it's a cool one that dives into the world of linked lists. The challenge was to find the middle node in a linked list, and if there are two middle nodes, return the second one.\n\nI approached this by using Two_Pointers: 'middle' and 'end'. Both start at the head of the list. Think of 'middle' as a slow walker and 'end' as a fast runner. The idea is to move 'middle' one step at a time, while 'end' moves two steps.\n\nI used a while loop that runs as long as 'end' isn't null (meaning we haven't reached the end of the list) and 'end.next' isn't null (to handle the case where the list has an even number of elements).\n\nInside the loop, I moved 'middle' one step forward, and 'end' two steps forward. The trick here is that by the time 'end' reaches the end of the list, 'middle' will be right at the center of the list. If there are two middle nodes, 'middle' will end up at the second one, because 'end' would have moved an extra step.\n\nWhen the loop ends, 'middle' is pointing to the desired node. That's the node I returned as the solution.\n\nThis problem is a great example of the two-pointer technique, a handy approach for tackling problems related to linked lists. It shows how you can use different paces to gather the information you need in just one pass through the list.",
             solutionCode:
                 'var middleNode = function(head) {\n    let middle = head;\n    let end = head;\n    \n    while (end != null && end.next != null) {\n        middle = middle.next;\n        end = end.next.next;\n    }\n    return middle;\n};',
         },

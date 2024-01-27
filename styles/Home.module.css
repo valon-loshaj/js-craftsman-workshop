@@ -19,7 +19,7 @@
 }
 
 .card p {
-    font-size: 1rem;
+    font-size: clamp(0.6rem, 0.8rem + 0.22vw, 1rem);
     line-height: 1.5;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
@@ -50,7 +50,7 @@
 }
 
 .codeBlock {
-    font-size: 75%;
+    font-size: clamp(0.55rem, 0.7rem + 0.22vw, 0.8rem);
 }
 
 .grid {
@@ -120,7 +120,7 @@
     background-color: rgb(100, 99, 99);
     border-radius: 50px;
     color: white;
-    font-size: 75%;
+    font-size: clamp(0.5rem, 0.6rem + 0.22vw, 0.8rem);
     margin-right: 0.25rem;
     padding: 0.2em 0.5em;
 }
