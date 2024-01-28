@@ -85,7 +85,9 @@ export default function JSCraftsmansWorkshop() {
                                     <div className={styles.codeBlock}>
                                         {problem.status.toLowerCase() === 'solved' ? (
                                             <>
-                                                <p>{solutionDetails[i]}</p>
+                                                {solutionDetails[i].split('\n').map((line, index) => (
+                                                    <p key={index}>{line}</p>
+                                                ))}
                                                 <CodeBlock language="javascript" value={solutionCode[i]} />
                                             </>
                                         ) : (
