@@ -1,5 +1,20 @@
 const problems = [
     {
+        title: 'H-Index (274)',
+        description:
+            "The 'H-Index' problem is a fascinating exercise in array manipulation. It involves finding the largest 'h' value in an array, where 'h' is defined as the number of elements in the array that are greater than or equal to 'h'.",
+        status: 'Solved',
+        tags: ['Leetcode', 'Arrays', 'Sorting'],
+        difficultyLevel: 'Medium',
+        details: {
+            expectedInput: 'abcdef, abcef',
+            solutionDetails:
+                "In solving the 'H-Index' problem, I used a sorting approach to efficiently find the largest 'h' value.\n The solution involved sorting the array in descending order and then iterating through it.\n For each element, I checked if it was greater than or equal to the current 'h' value. If it was, I incremented 'h' and moved on to the next element. Otherwise, I stopped the loop and returned the current 'h' value.\n This method ensures that the largest 'h' value is found, showcasing the power of sorting in solving array problems.",
+            solutionCode:
+                'function hIndex(citations: number[]): number {\n    // Sort the citations in descending order.\n    citations.sort((a, b) => b - a);\n    \n    // Find the h-index.\n    let hInd: number = 0;\n    for (let i = 0; i < citations.length; i++) {\n        if (citations[i] >= i + 1) {\n            hInd = i + 1;\n        } else {\n            break;\n        }\n    }\n    \n    return hInd;\n};',
+        },
+    },
+    {
         title: 'Valid Palindrome (125)',
         description:
             "The 'Valid Palindrome' problem is a fascinating exercise in string manipulation. It asks to determine whether a given string is a palindrome, considering only alphanumeric characters and ignoring cases.",
